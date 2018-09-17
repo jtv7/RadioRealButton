@@ -433,11 +433,7 @@ public class RadioRealButton extends LinearLayout {
     }
 
     private void bounce(View view, float scale, int duration, Interpolator interpolator) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
-            view.animate().setDuration(duration).setInterpolator(interpolator).scaleX(scale).scaleY(scale);
-        } else {
-            bounce(view, scale);
-        }
+        view.animate().setDuration(duration).setInterpolator(interpolator).scaleX(scale).scaleY(scale);
     }
 
     /*private void bounce(View view, float scale, int duration, Interpolator interpolator) {

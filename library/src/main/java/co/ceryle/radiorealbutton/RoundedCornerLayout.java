@@ -47,7 +47,10 @@ public class RoundedCornerLayout extends FrameLayout {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public RoundedCornerLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public RoundedCornerLayout(Context context,
+                               AttributeSet attrs,
+                               int defStyleAttr,
+                               int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
@@ -77,7 +80,13 @@ public class RoundedCornerLayout extends FrameLayout {
 
         final Path path = new Path();
         path.addRoundRect(new RectF(0, 0, canvas.getWidth(), canvas.getHeight()), cornerRadius, cornerRadius, Path.Direction.CW);
-        canvas.clipPath(path, Region.Op.REPLACE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            canvas.clipPath(path, Region.Op.INTERSECT);
+        } else {
+            canvas.clipPath(path, Region.Op.REPLACE);
+        }
+
         canvas.clipPath(path);
 
         super.dispatchDraw(canvas);
